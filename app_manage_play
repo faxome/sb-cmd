@@ -1,0 +1,8 @@
+---
+
+- name: app state manage
+  hosts: WEB_SERVICES
+  become: yes
+
+  roles:
+    - app_manage

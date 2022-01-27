@@ -1,0 +1,7 @@
+---
+
+- name: Change balance state 
+  systemd: name=app state={{ state }} 
+
+- debug:
+    msg: "All done!"

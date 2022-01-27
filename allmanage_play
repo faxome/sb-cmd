@@ -1,0 +1,29 @@
+---
+
+- name: balance management
+  hosts: all
+  become: yes
+
+  vars:
+    serv: balance
+    state: started
+    all: all    
+
+  tasks:
+
+  - block: #custon_services 
+
+    - name: custom service
+      service: name={{ serv  }} state={{ state }}
+   
+    when: all == "custom"
+
+  - block: #all_services
+
+    - name: balance service    
+      service: name=balance state={{ state }}
+    
+    - name: app service
+      service: name=udev state={{ state }}
+
+    when: all == "all"

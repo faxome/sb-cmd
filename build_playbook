@@ -1,0 +1,9 @@
+---
+
+- name  : build environment
+  hosts : all
+  become: yes
+
+
+  roles:
+    - build

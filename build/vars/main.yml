@@ -1,0 +1,3 @@
+--- 
+systemd_folder: /etc/systemd/system
+work_folder: /var/www/app

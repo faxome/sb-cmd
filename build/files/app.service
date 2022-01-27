@@ -1,0 +1,12 @@
+[Unit]
+Description=flaskapp
+After=network.target
+
+[Service] 
+User=ubuntu 
+WorkingDirectory=/var/www/app/
+ExecStart=/var/www/app/venv/bin/gunicorn -b localhost:8080 -w 4 app:app
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

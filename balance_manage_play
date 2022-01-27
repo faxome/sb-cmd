@@ -1,0 +1,8 @@
+---
+
+- name: app state manage
+  hosts: BALANCE
+  become: yes
+
+  roles:
+    - balance_manage

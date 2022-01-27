@@ -1,0 +1,59 @@
+--- 
+
+- name: Update apt
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install nginx 
+  apt: name=nginx state=latest 
+
+- name: Stop and disable 
+  service: name=nginx state=stopped enabled=no
+  
+- name: Create balance systemd unit 
+  copy: 
+    src="{{ item }}" 
+    dest={{ systemd_folder }}
+  with_items:
+    - balance.service
+    - app.service 
+
+- name: Daemon reload
+  systemd: daemon_reload=yes 
+
+- name: Create work folder on main server 
+  file: 
+    path: /var/www/app/ 
+    state: directory 
+    mode: 0755
+  delegate_to: main
+
+- name: Copy app files
+  copy: src=app.py dest={{ work_folder }}  
+
+- name: Install pip
+  apt: name=python3-pip state=latest
+
+- name: Install venv
+  pip: 
+    name: virtualenv
+
+- name: Install Python Modules
+  shell: virtualenv "{{ work_folder }}/venv" creates="{{ work_folder }}/venv/bin/activate" 
+
+- name: Install Flask
+  pip: name=flask virtualenv="{{ work_folder }}/venv"   
+
+- name: Install gunicorn 
+  pip: name=gunicorn virtualenv="{{ work_folder }}/venv"
+
+- name: Start balance service and enable on boot
+  service: name=balance state=started enabled=yes
+
+- name: Start app service
+  service: name=app state=started
+
+- debug:
+    msg: "All successfully installed and running"  
+

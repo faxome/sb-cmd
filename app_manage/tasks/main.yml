@@ -1,0 +1,6 @@
+---
+- name: Change app state
+  systemd: name=app state={{ state }}
+
+- debug:
+    msg: "All done!" 
