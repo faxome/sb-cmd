@@ -7,7 +7,7 @@
   vars:
     serv: balance
     state: started
-    all: all    
+    nodes: all    
 
   tasks:
 
@@ -16,7 +16,7 @@
     - name: custom service
       service: name={{ serv  }} state={{ state }}
    
-    when: all == "custom"
+    when: nodes == "custom"
 
   - block: #all_services
 
@@ -26,4 +26,4 @@
     - name: app service
       service: name=udev state={{ state }}
 
-    when: all == "all"
+    when: nodes == "all"

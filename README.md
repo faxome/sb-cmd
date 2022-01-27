@@ -23,7 +23,7 @@ serv - служба, имеет два параметра [balance | app]
 #example
 ansible-playbook allmanage_play --extra-vars "state=stopped serv=balance"
 
-all - переменная позволяющая задать два параметра all - выполнить везде, custom - выполнить для указанных сервисов
+nodes - переменная позволяющая задать два параметра all - выполнить везде, custom - выполнить для указанных сервисов
 
 #example
 ansible-playbook allmanage_play --extra-vars "state=stopped all=all"
